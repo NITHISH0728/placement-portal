@@ -6,7 +6,12 @@ const db = require('./db');
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(cors());
+app.use(cors({
+  origin: [
+    'https://placement-portal-ywk6.onrender.com',
+    'http://localhost:5173',
+  ],
+}));
 app.use(express.json());
 
 app.get('/', (req, res) => {
