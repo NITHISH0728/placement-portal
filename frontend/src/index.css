@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  font-family: 'Outfit', sans-serif;
+}
+
+/* Quote animation keyframes */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOutDown {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-24px);
+  }
+}
+
+/* Image crossfade keyframes */
+@keyframes imgFadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes imgFadeOut {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}
+
+.quote-enter {
+  animation: fadeInUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.quote-exit {
+  animation: fadeOutDown 0.6s ease-in forwards;
+}
+
+.img-enter {
+  animation: imgFadeIn 1s ease forwards;
+}
+
+.img-exit {
+  animation: imgFadeOut 0.7s ease forwards;
+}
