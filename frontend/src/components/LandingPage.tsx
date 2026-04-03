@@ -72,21 +72,21 @@ export default function LandingPage({ onLoginSuccess }: { onLoginSuccess: (email
             {/* Inject keyframes once */}
             <style>{STYLE}</style>
 
-            <div style={{
+            <div className="max-md:!flex-col" style={{
                 display: 'flex', height: '100vh', width: '100vw',
                 overflow: 'hidden', fontFamily: "'Outfit', sans-serif",
                 position: 'relative', background: '#fff',
             }}>
 
                 {/* ════════════════════════ LEFT PANEL ════════════════════════════ */}
-                <div style={{
+                <div className="max-md:!w-full max-md:!px-8 max-md:!pt-24 max-md:!pb-12 max-md:!flex-1" style={{
                     width: '52%', background: '#ffffff',
                     display: 'flex', flexDirection: 'column', justifyContent: 'center',
                     padding: '0 72px', position: 'relative', zIndex: 2,
                 }}>
 
                     {/* Logo — fixed */}
-                    <div style={{ position: 'absolute', top: 36, left: 56 }}>
+                    <div className="max-md:!top-6 max-md:!left-8" style={{ position: 'absolute', top: 36, left: 56 }}>
                         <span style={{ fontSize: 24, fontWeight: 800, color: '#0A1628', letterSpacing: '-0.5px' }}>
                             Placement<span style={{ color: '#1B4FCC' }}>Portal</span>
                         </span>
@@ -115,7 +115,7 @@ export default function LandingPage({ onLoginSuccess }: { onLoginSuccess: (email
                         </div>
 
                         {/* Headline */}
-                        <h1 style={{
+                        <h1 className="max-md:!text-[2.2rem]" style={{
                             fontSize: '3.6rem', fontWeight: 900,
                             color: '#0A1628', lineHeight: 1.12,
                             marginBottom: 20, whiteSpace: 'pre-line',
@@ -129,7 +129,7 @@ export default function LandingPage({ onLoginSuccess }: { onLoginSuccess: (email
                         </h1>
 
                         {/* Sub-text */}
-                        <p style={{
+                        <p className="max-md:!text-[1rem]" style={{
                             fontSize: '1.15rem', color: '#6B7280',
                             lineHeight: 1.7, maxWidth: 400,
                             textShadow: '0 2px 8px rgba(0,0,0,0.04)',
@@ -168,7 +168,7 @@ export default function LandingPage({ onLoginSuccess }: { onLoginSuccess: (email
                     </button>
 
                     {/* Slide dots — stable */}
-                    <div style={{
+                    <div className="max-md:!bottom-8 max-md:!left-8" style={{
                         position: 'absolute', bottom: 44, left: 72,
                         display: 'flex', gap: 8,
                     }}>
@@ -185,14 +185,14 @@ export default function LandingPage({ onLoginSuccess }: { onLoginSuccess: (email
                 </div>
 
                 {/* ══════════════════ DIAGONAL DIVIDER ════════════════════════════ */}
-                <div style={{
+                <div className="max-md:!hidden" style={{
                     position: 'absolute', top: 0, left: '49%',
                     width: 68, height: '100%',
                     background: '#ffffff',
                     transform: 'skewX(-5deg)',
                     zIndex: 4, boxShadow: '6px 0 20px rgba(0,0,0,0.10)',
                 }} />
-                <div style={{
+                <div className="max-md:!hidden" style={{
                     position: 'absolute', top: 0, left: '52%',
                     width: 12, height: '100%',
                     background: 'rgba(200,220,255,0.5)',
@@ -200,7 +200,7 @@ export default function LandingPage({ onLoginSuccess }: { onLoginSuccess: (email
                 }} />
 
                 {/* ════════════════════════ RIGHT PANEL ═══════════════════════════ */}
-                <div style={{
+                <div className="max-md:!hidden" style={{
                     flex: 1, position: 'relative',
                     overflow: 'hidden', background: '#0A1628',
                 }}>

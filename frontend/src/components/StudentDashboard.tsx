@@ -152,6 +152,7 @@ export default function StudentDashboard({ email, onLogout }: Props) {
 
             {/* ── Header ──────────────────────────────────────────────────────── */}
             <div
+                className="max-md:!px-4"
                 ref={headerRef}
                 style={{
                     background: 'linear-gradient(135deg, #0A1628 0%, #1B4FCC 100%)',
@@ -160,7 +161,7 @@ export default function StudentDashboard({ email, onLogout }: Props) {
                     position: 'sticky', top: 0, zIndex: 10,
                 }}
             >
-                <div style={{
+                <div className="max-md:!flex-col max-md:!h-auto max-md:!gap-4 max-md:!py-4" style={{
                     maxWidth: 1200, margin: '0 auto',
                     display: 'flex', alignItems: 'center',
                     justifyContent: 'space-between', height: 68,
@@ -194,7 +195,7 @@ export default function StudentDashboard({ email, onLogout }: Props) {
                     </div>
 
                     {/* User + logout */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                    <div className="max-md:!w-full max-md:!justify-between" style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
                         <div style={{ textAlign: 'right' }}>
                             <p style={{ margin: 0, color: '#fff', fontWeight: 600, fontSize: 14 }}>
                                 {email.split('@')[0]}
@@ -237,9 +238,9 @@ export default function StudentDashboard({ email, onLogout }: Props) {
             </div>
 
             {/* ── Sub-header with Progress Bars ──────────────────────────────── */}
-            <div style={{ background: '#fff', borderBottom: '1px solid #E5E7EB', padding: '20px 40px 24px' }}>
+            <div className="max-md:!px-4" style={{ background: '#fff', borderBottom: '1px solid #E5E7EB', padding: '20px 40px 24px' }}>
                 <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18 }}>
+                    <div className="max-md:!flex-col max-md:!items-start max-md:!gap-4" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18 }}>
                         <div>
                             <h2 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 700, color: '#0A1628' }}>
                                 My Placement Progress
@@ -285,7 +286,7 @@ export default function StudentDashboard({ email, onLogout }: Props) {
                                     background: '#FAFAFA', border: '1px solid #E5E7EB', borderRadius: 10,
                                     padding: '14px 18px', transition: 'all 0.2s'
                                 }}>
-                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                                    <div className="max-md:!flex-col max-md:!items-start max-md:!gap-2" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
                                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                                             <span style={{
                                                 background: tier.color, color: '#fff', borderRadius: 4,
@@ -331,7 +332,7 @@ export default function StudentDashboard({ email, onLogout }: Props) {
             </div>
 
             {/* ── 8 Parameter Cards ───────────────────────────────────────────── */}
-            <div style={{ maxWidth: 1200, margin: '0 auto', padding: '32px 40px' }}>
+            <div className="max-md:!px-4 max-md:!py-6" style={{ maxWidth: 1200, margin: '0 auto', padding: '32px 40px' }}>
                 <div style={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',

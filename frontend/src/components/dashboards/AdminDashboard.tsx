@@ -135,7 +135,7 @@ export default function AdminDashboard({ email, onLogout }: Props) {
     return (
         <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', background: '#F9FAFB', fontFamily: "'Outfit', sans-serif" }}>
             {/* Horizontal Navbar */}
-            <header style={{
+            <header className="max-md:!px-4 max-md:!h-auto max-md:!py-4 max-md:!flex-col max-md:!gap-4 max-md:!items-start" style={{
                 background: '#FFFFFF', borderBottom: '1px solid #E5E7EB',
                 display: 'flex', alignItems: 'center', padding: '0 32px', height: 64, flexShrink: 0,
                 boxShadow: '0 1px 3px rgba(0,0,0,0.04)', zIndex: 20
@@ -150,7 +150,7 @@ export default function AdminDashboard({ email, onLogout }: Props) {
                     </div>
                 </div>
 
-                <nav style={{ display: 'flex', alignItems: 'center', gap: 4, flex: 1 }}>
+                <nav className="max-md:!flex-wrap max-md:!justify-start max-md:!w-full max-md:!gap-2" style={{ display: 'flex', alignItems: 'center', gap: 4, flex: 1 }}>
                     {navItems.map(item => (
                         <button key={item.key} onClick={() => setActiveTab(item.key)} style={{
                             display: 'flex', alignItems: 'center', gap: 8, padding: '8px 18px', borderRadius: 8,
@@ -165,7 +165,7 @@ export default function AdminDashboard({ email, onLogout }: Props) {
                     ))}
                 </nav>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginLeft: 'auto' }}>
+                <div className="max-md:!w-full max-md:!justify-between max-md:!ml-0" style={{ display: 'flex', alignItems: 'center', gap: 14, marginLeft: 'auto' }}>
                     <div style={{ textAlign: 'right' }}>
                         <p style={{ margin: 0, fontSize: '0.8rem', color: '#111827', fontWeight: 700 }}>{adminUser?.name}</p>
                         <p style={{ margin: 0, fontSize: '0.68rem', color: '#6B7280' }}>{adminUser?.email}</p>
@@ -192,7 +192,7 @@ export default function AdminDashboard({ email, onLogout }: Props) {
 
             {/* Main Content */}
             <div style={{ flex: 1, overflowY: 'auto' }}>
-                <div style={{ padding: '32px 40px', maxWidth: 1400, margin: '0 auto' }}>
+                <div className="max-md:!px-4 max-md:!py-6" style={{ padding: '32px 40px', maxWidth: 1400, margin: '0 auto' }}>
 
                     {/* ═══ HOME TAB ═══ */}
                     {activeTab === 'home' && (
@@ -232,7 +232,7 @@ export default function AdminDashboard({ email, onLogout }: Props) {
 
                             {/* Quick Access Cards */}
                             <h3 style={{ margin: '0 0 14px', fontSize: '1rem', color: '#111827', fontWeight: 800 }}>Quick Access</h3>
-                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16, marginBottom: 28 }}>
+                            <div className="max-md:!grid-cols-2" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16, marginBottom: 28 }}>
                                 {[
                                     { label: 'STUDENT LIST', value: deptStudents, sub: 'students', tab: 'students' as const, color: '#111827' },
                                     { label: 'STAFF LIST', value: deptStaff, sub: 'staff members', tab: 'staff' as const, color: '#111827' },
@@ -257,7 +257,7 @@ export default function AdminDashboard({ email, onLogout }: Props) {
                     {/* ═══ STUDENT MANAGEMENT TAB ═══ */}
                     {activeTab === 'students' && (
                         <div style={{ animation: 'fadeIn 0.3s ease' }}>
-                            <div style={{ marginBottom: 28, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                            <div className="max-md:!flex-col max-md:!items-start max-md:!gap-3" style={{ marginBottom: 28, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                                 <div>
                                     <h2 style={{ margin: '0 0 6px', fontSize: '1.5rem', color: '#111827', fontWeight: 800 }}>Student Management</h2>
                                     <p style={{ margin: 0, color: '#6B7280', fontSize: '0.9rem' }}>Search and view profiles for any student in {department}.</p>
@@ -272,7 +272,7 @@ export default function AdminDashboard({ email, onLogout }: Props) {
                                 </button>
                             </div>
 
-                            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
+                            <div className="max-md:!flex-col max-md:!items-start max-md:!gap-3" style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
                                 <button onClick={handleRefresh} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 14px', borderRadius: 7, background: '#fff', border: '1px solid #E5E7EB', color: '#4B5563', fontWeight: 600, cursor: 'pointer', fontSize: '0.85rem', boxShadow: '0 1px 2px rgba(0,0,0,0.05)', transition: 'all 0.15s' }} onMouseEnter={e => e.currentTarget.style.background = '#F9FAFB'} onMouseLeave={e => e.currentTarget.style.background = '#fff'}>
                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
                                     Refresh
@@ -338,7 +338,7 @@ export default function AdminDashboard({ email, onLogout }: Props) {
                     {/* ═══ STAFF MANAGEMENT TAB ═══ */}
                     {activeTab === 'staff' && (
                         <div style={{ animation: 'fadeIn 0.3s ease' }}>
-                            <div style={{ marginBottom: 28, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                            <div className="max-md:!flex-col max-md:!items-start max-md:!gap-3" style={{ marginBottom: 28, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                                 <div>
                                     <h2 style={{ margin: '0 0 6px', fontSize: '1.5rem', color: '#111827', fontWeight: 800 }}>Staff Management</h2>
                                     <p style={{ margin: 0, color: '#6B7280', fontSize: '0.9rem' }}>View and manage staff members in {department} department.</p>
@@ -353,7 +353,7 @@ export default function AdminDashboard({ email, onLogout }: Props) {
                                 </button>
                             </div>
 
-                            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
+                            <div className="max-md:!flex-col max-md:!items-start max-md:!gap-3" style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
                                 <div style={{ position: 'relative', width: 300 }}>
                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)' }}><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                                     <input type="text" placeholder="Search staff by name or email..." value={staffSearch} onChange={e => setStaffSearch(e.target.value)}

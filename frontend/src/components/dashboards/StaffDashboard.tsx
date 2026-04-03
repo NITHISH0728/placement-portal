@@ -215,7 +215,7 @@ export default function StaffDashboard({ email, onLogout }: Props) {
     return (
         <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', background: '#F9FAFB', fontFamily: "'Outfit', sans-serif" }}>
             {/* ── Horizontal Navbar ── */}
-            <header style={{
+            <header className="max-md:!px-4 max-md:!h-auto max-md:!py-4 max-md:!flex-col max-md:!gap-4 max-md:!items-start" style={{
                 background: '#FFFFFF', borderBottom: '1px solid #E5E7EB',
                 display: 'flex', alignItems: 'center', padding: '0 32px', height: 64, flexShrink: 0,
                 boxShadow: '0 1px 3px rgba(0,0,0,0.04)', zIndex: 20
@@ -238,7 +238,7 @@ export default function StaffDashboard({ email, onLogout }: Props) {
                 </div>
 
                 {/* Nav Tabs */}
-                <nav style={{ display: 'flex', alignItems: 'center', gap: 4, flex: 1 }}>
+                <nav className="max-md:!flex-wrap max-md:!justify-start max-md:!w-full max-md:!gap-2" style={{ display: 'flex', alignItems: 'center', gap: 4, flex: 1 }}>
                     {navItems.map(item => (
                         <button key={item.key} onClick={() => setActiveTab(item.key)} style={{
                             display: 'flex', alignItems: 'center', gap: 8, padding: '8px 18px', borderRadius: 8,
@@ -260,7 +260,7 @@ export default function StaffDashboard({ email, onLogout }: Props) {
                 </nav>
 
                 {/* Right: user info + logout */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginLeft: 'auto' }}>
+                <div className="max-md:!w-full max-md:!justify-between max-md:!ml-0" style={{ display: 'flex', alignItems: 'center', gap: 14, marginLeft: 'auto' }}>
                     <div style={{ textAlign: 'right' }}>
                         <p style={{ margin: 0, fontSize: '0.8rem', color: '#111827', fontWeight: 700 }}>{staffUser?.name}</p>
                         <p style={{ margin: 0, fontSize: '0.68rem', color: '#6B7280' }}>{staffUser?.email}</p>
@@ -289,7 +289,7 @@ export default function StaffDashboard({ email, onLogout }: Props) {
 
             {/* ── Main Content ── */}
             <div style={{ flex: 1, overflowY: 'auto' }}>
-                <div style={{ padding: '32px 40px' }}>
+                <div className="max-md:!px-4 max-md:!py-6" style={{ padding: '32px 40px' }}>
 
                     {activeTab === 'dashboard' && (() => {
                         // Computed dashboard metrics

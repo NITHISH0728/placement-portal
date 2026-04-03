@@ -54,6 +54,7 @@ export default function LoginModal({ onClose, onSuccess }: Props) {
         >
             {/* ── Modal card ──────────────────────────────────────────────────── */}
             <div
+                className="max-md:!w-[90%] max-md:!p-6"
                 onClick={e => e.stopPropagation()}
                 style={{
                     background: 'rgba(255,255,255,0.92)',

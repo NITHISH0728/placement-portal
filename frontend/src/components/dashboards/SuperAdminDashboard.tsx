@@ -190,12 +190,12 @@ export default function SuperAdminDashboard({ email, onLogout }: Props) {
         <div style={{ minHeight: '100vh', background: '#F1F5F9', fontFamily: "'Outfit', sans-serif" }}>
 
             {/* ══════════ TOP NAVBAR ══════════ */}
-            <nav style={{
+            <nav className="max-md:!px-4 max-md:!py-3 max-md:!static" style={{
                 background: 'linear-gradient(135deg, #0A1628 0%, #1B2F55 100%)',
                 padding: '0 40px', position: 'sticky', top: 0, zIndex: 50,
                 boxShadow: '0 2px 16px rgba(0,0,0,0.22)',
             }}>
-                <div style={{ maxWidth: 1280, margin: '0 auto', display: 'flex', alignItems: 'stretch', height: 62, gap: 0 }}>
+                <div className="max-md:!flex-col max-md:!h-auto max-md:!gap-4" style={{ maxWidth: 1280, margin: '0 auto', display: 'flex', alignItems: 'stretch', height: 62, gap: 0 }}>
                     {/* Logo */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginRight: 40 }}>
                         <div style={{ width: 34, height: 34, borderRadius: 8, background: 'rgba(255,255,255,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -208,7 +208,7 @@ export default function SuperAdminDashboard({ email, onLogout }: Props) {
                     </div>
 
                     {/* Nav Tabs */}
-                    <div style={{ display: 'flex', gap: 32, alignItems: 'stretch', flex: 1 }}>
+                    <div className="max-md:!flex-wrap max-md:!gap-4" style={{ display: 'flex', gap: 32, alignItems: 'stretch', flex: 1 }}>
                         {navBtn('home', 'Home')}
                         {navBtn('onboarding', 'Onboarding')}
                         {navBtn('students', 'Student Management')}
@@ -216,7 +216,7 @@ export default function SuperAdminDashboard({ email, onLogout }: Props) {
                     </div>
 
                     {/* Right: user + logout */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                    <div className="max-md:!w-full max-md:!justify-between" style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
                         <div style={{ textAlign: 'right' }}>
                             <p style={{ margin: 0, color: '#fff', fontWeight: 600, fontSize: '0.82rem' }}>{adminUser?.name}</p>
                             <p style={{ margin: 0, color: 'rgba(255,255,255,0.4)', fontSize: '0.68rem' }}>{adminUser?.email}</p>
@@ -233,7 +233,7 @@ export default function SuperAdminDashboard({ email, onLogout }: Props) {
                 TAB: HOME
             ══════════════════════════════════════ */}
             {activeTab === 'home' && (
-                <div style={{ maxWidth: 1280, margin: '0 auto', padding: '36px 40px' }}>
+                <div className="max-md:!px-4 max-md:!py-6" style={{ maxWidth: 1280, margin: '0 auto', padding: '36px 40px' }}>
                     {/* Page title */}
                     <div style={{ marginBottom: 28 }}>
                         <h1 style={{ margin: 0, fontSize: '1.5rem', fontWeight: 800, color: '#0A1628' }}>Dashboard Overview</h1>
@@ -241,7 +241,7 @@ export default function SuperAdminDashboard({ email, onLogout }: Props) {
                     </div>
 
                     {/* Profile card */}
-                    <div style={{ background: '#fff', border: '1px solid #E5E7EB', borderRadius: 8, padding: '24px 28px', marginBottom: 28, display: 'flex', alignItems: 'center', gap: 20, boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}>
+                    <div className="max-md:!flex-col max-md:!items-start" style={{ background: '#fff', border: '1px solid #E5E7EB', borderRadius: 8, padding: '24px 28px', marginBottom: 28, display: 'flex', alignItems: 'center', gap: 20, boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}>
                         <div style={{ width: 56, height: 56, borderRadius: '50%', background: 'linear-gradient(135deg,#6366F1,#8B5CF6)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 800, fontSize: 22, flexShrink: 0 }}>
                             {(adminUser?.name || 'S')[0].toUpperCase()}
                         </div>
@@ -304,7 +304,7 @@ export default function SuperAdminDashboard({ email, onLogout }: Props) {
                 TAB: ONBOARDING
             ══════════════════════════════════════ */}
             {activeTab === 'onboarding' && (
-                <div style={{ maxWidth: 900, margin: '0 auto', padding: '36px 40px' }}>
+                <div className="max-md:!px-4 max-md:!py-6" style={{ maxWidth: 900, margin: '0 auto', padding: '36px 40px' }}>
                     <div style={{ marginBottom: 24 }}>
                         <h1 style={{ margin: 0, fontSize: '1.5rem', fontWeight: 800, color: '#0A1628' }}>Onboarding</h1>
                         <p style={{ margin: '4px 0 0', color: '#6B7280', fontSize: '0.85rem' }}>Provision new HOD (Admin) or Student accounts.</p>
@@ -339,7 +339,7 @@ export default function SuperAdminDashboard({ email, onLogout }: Props) {
                                     </div>
                                 )}
                                 <form onSubmit={handleAdminOnboard} style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
-                                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+                                    <div className="max-md:!grid-cols-1" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
                                         <Field label="Full Name">
                                             <input required style={inp} type="text" value={adminName} onChange={e => setAdminName(e.target.value)} placeholder="Dr. John Doe" />
                                         </Field>
@@ -403,7 +403,7 @@ export default function SuperAdminDashboard({ email, onLogout }: Props) {
                                             </div>
                                         )}
                                         <form onSubmit={handleSingleStudent} style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
-                                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+                                            <div className="max-md:!grid-cols-1" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
                                                 <Field label="Full Name">
                                                     <input required style={inp} type="text" value={stName} onChange={e => setStName(e.target.value)} placeholder="Student full name" />
                                                 </Field>
@@ -538,8 +538,8 @@ export default function SuperAdminDashboard({ email, onLogout }: Props) {
                 TAB: STUDENT MANAGEMENT
             ══════════════════════════════════════ */}
             {activeTab === 'students' && (
-                <div style={{ maxWidth: 1100, margin: '0 auto', padding: '36px 40px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24 }}>
+                <div className="max-md:!px-4 max-md:!py-6" style={{ maxWidth: 1100, margin: '0 auto', padding: '36px 40px' }}>
+                    <div className="max-md:!flex-col max-md:!items-start max-md:!gap-3" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24 }}>
                         <div>
                             <h1 style={{ margin: 0, fontSize: '1.5rem', fontWeight: 800, color: '#0A1628' }}>Student Management</h1>
                             <p style={{ margin: '4px 0 0', color: '#6B7280', fontSize: '0.85rem' }}>Search and view profiles for any student in the college.</p>
@@ -559,7 +559,7 @@ export default function SuperAdminDashboard({ email, onLogout }: Props) {
                     </div>
 
                     {/* Search + Filter bar */}
-                    <div style={{ background: '#fff', border: '1px solid #E5E7EB', borderRadius: 8, padding: '14px 22px', marginBottom: 20, boxShadow: '0 1px 4px rgba(0,0,0,0.04)', display: 'flex', gap: 14, alignItems: 'center' }}>
+                    <div className="max-md:!flex-col" style={{ background: '#fff', border: '1px solid #E5E7EB', borderRadius: 8, padding: '14px 22px', marginBottom: 20, boxShadow: '0 1px 4px rgba(0,0,0,0.04)', display: 'flex', gap: 14, alignItems: 'center' }}>
                         <div style={{ position: 'relative', flex: 1 }}>
                             <svg style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" /></svg>
                             <input type="text" placeholder="Search by name or register number…" value={searchQ} onChange={e => setSearchQ(e.target.value)} style={{ ...inp, paddingLeft: 42, background: '#F9FAFB' }} />
@@ -635,7 +635,7 @@ export default function SuperAdminDashboard({ email, onLogout }: Props) {
                 TAB: ADMIN MANAGEMENT
             ══════════════════════════════════════ */}
             {activeTab === 'admins' && (
-                <div style={{ maxWidth: 1100, margin: '0 auto', padding: '36px 40px' }}>
+                <div className="max-md:!px-4 max-md:!py-6" style={{ maxWidth: 1100, margin: '0 auto', padding: '36px 40px' }}>
                     <div style={{ marginBottom: 24 }}>
                         <h1 style={{ margin: 0, fontSize: '1.5rem', fontWeight: 800, color: '#0A1628' }}>Admin Management</h1>
                         <p style={{ margin: '4px 0 0', color: '#6B7280', fontSize: '0.85rem' }}>View and manage all HOD (Admin) accounts.</p>
