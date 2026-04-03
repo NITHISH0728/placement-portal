@@ -16,6 +16,7 @@ export default function StaffDashboard({ email, onLogout }: Props) {
 
     // UI States
     const [statusFilter, setStatusFilter] = useState<'All' | 'Completed' | 'Pending'>('All');
+    const [, forceRender] = useState({});
     const [profileImage, setProfileImage] = useState<string | null>(() => localStorage.getItem(`pp_avatar_${email}`));
     const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -171,7 +172,7 @@ export default function StaffDashboard({ email, onLogout }: Props) {
         setSelectedVerificationItem(null); // Close modal if open
         // Page will naturally re-render when state changes because of React logic... 
         // but since we rely on localStorage primarily for mock DB, we force a re-render here:
-        window.location.reload();
+        forceRender({});
     }
 
     const navItems: { key: 'dashboard' | 'verification' | 'students' | 'onboard'; label: string }[] = [
