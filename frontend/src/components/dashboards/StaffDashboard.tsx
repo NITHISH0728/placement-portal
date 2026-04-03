@@ -1074,13 +1074,22 @@ export default function StaffDashboard({ email, onLogout }: Props) {
                             <div>
                                 <h4 style={{ margin: '0 0 12px', fontSize: '0.85rem', color: '#374151', fontWeight: 700 }}>Attached Proof</h4>
                                 <div style={{ background: '#F3F4F6', borderRadius: 12, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 200, border: '1px solid #E5E7EB' }}>
-                                    {selectedVerificationItem.sub.imageDataUrl ? 
-                                        <img src={selectedVerificationItem.sub.imageDataUrl} style={{ width: '100%', height: 'auto', display: 'block' }} alt="Proof" /> :
+                                    {selectedVerificationItem.sub.imageDataUrl ? (
+                                        Array.isArray(selectedVerificationItem.sub.imageDataUrl) ? (
+                                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, padding: 10, justifyContent: 'center' }}>
+                                                {selectedVerificationItem.sub.imageDataUrl.map((url, i) => (
+                                                    <img key={i} src={url} style={{ maxWidth: '100%', maxHeight: 200, borderRadius: 8, display: 'block' }} alt={`Proof ${i+1}`} />
+                                                ))}
+                                            </div>
+                                        ) : (
+                                            <img src={selectedVerificationItem.sub.imageDataUrl} style={{ maxWidth: '100%', maxHeight: 300, display: 'block' }} alt="Proof" />
+                                        )
+                                    ) : (
                                         <div style={{ textAlign: 'center', padding: 40, color: '#9CA3AF' }}>
                                             <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" style={{ margin: '0 auto 12px' }}><rect x="3" y="3" width="18" height="18" rx="2" ry="2" /><circle cx="8.5" cy="8.5" r="1.5" /><polyline points="21 15 16 10 5 21" /></svg>
                                             <p style={{ margin: 0, fontSize: '0.9rem', fontWeight: 500 }}>No image provided</p>
                                         </div>
-                                    }
+                                    )}
                                 </div>
                             </div>
                         </div>

@@ -13,7 +13,7 @@ interface Props {
 export default function StudentProfileView({ studentEmail, studentName, studentReg, studentDept, studentSec, onClose }: Props) {
     const subs = getSubmissions(studentEmail);
     const student = getUsers().find(u => u.email === studentEmail);
-    const [previewImage, setPreviewImage] = useState<string | null>(null);
+    const [previewImage, setPreviewImage] = useState<string | string[] | null>(null);
 
     function getEarnedMarks(subs: Submission[], paramId: number): number {
         const approved = subs.filter(s => s.parameterId === paramId && s.status === 'approved');
@@ -276,15 +276,19 @@ export default function StudentProfileView({ studentEmail, studentName, studentR
                     position: 'fixed', inset: 0, zIndex: 200, background: 'rgba(0,0,0,0.85)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 40
                 }} onClick={(e) => { e.stopPropagation(); setPreviewImage(null); }}>
-                    <div style={{ position: 'relative', maxWidth: '100%', maxHeight: '100%' }}>
-                        <img src={previewImage} style={{ maxWidth: '100%', maxHeight: '90vh', objectFit: 'contain', borderRadius: 6 }} alt="Proof preview" />
+                    <div style={{ position: 'relative', display: 'flex', gap: 20, overflowX: 'auto', maxWidth: '100%', padding: 20, alignItems: 'center' }}>
+                        {Array.isArray(previewImage) ? previewImage.map((img, i) => (
+                            <img key={i} src={img} style={{ maxWidth: '90vw', maxHeight: '80vh', objectFit: 'contain', borderRadius: 6 }} alt={`Proof preview ${i+1}`} />
+                        )) : (
+                            <img src={previewImage} style={{ maxWidth: '100%', maxHeight: '90vh', objectFit: 'contain', borderRadius: 6 }} alt="Proof preview" />
+                        )}
                         <button onClick={(e) => { e.stopPropagation(); setPreviewImage(null); }} style={{
-                            position: 'absolute', top: -14, right: -14, width: 30, height: 30, borderRadius: 6,
+                            position: 'fixed', top: 20, right: 20, width: 40, height: 40, borderRadius: '50%',
                             background: '#fff', color: '#111827', border: '1px solid #E5E7EB', cursor: 'pointer',
                             display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            boxShadow: '0 4px 8px rgba(0,0,0,0.15)'
+                            boxShadow: '0 4px 12px rgba(0,0,0,0.2)'
                         }}>
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                         </button>
                     </div>
                 </div>

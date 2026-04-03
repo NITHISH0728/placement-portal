@@ -218,9 +218,7 @@ export default function StudentDashboard({ email, onLogout }: Props) {
                                 );
                             })()}
                         </div>
-                        <button onClick={() => setShowSettings(true)} style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.18)', color: '#fff', borderRadius: 8, padding: '7px 16px', fontSize: 13, fontWeight: 600, cursor: 'pointer', transition: 'background 0.2s' }} onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.2)')} onMouseLeave={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.1)')}>
-                            Upload Photo
-                        </button>
+
                         <button
                             onClick={onLogout}
                             style={{

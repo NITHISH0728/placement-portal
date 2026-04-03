@@ -2,7 +2,7 @@ export interface Submission {
     parameterId: number;
     tierId: number;
     platform: string;
-    imageDataUrl: string;
+    imageDataUrl: string | string[];
     status: 'pending' | 'approved' | 'rejected';
     submittedAt: string;
     achievementLabel?: string;

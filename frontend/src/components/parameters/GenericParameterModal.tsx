@@ -25,8 +25,7 @@ export default function GenericParameterModal({ parameterId, subs, onNewSub, onC
     const [selectedTier, setSelectedTier] = useState<GenericTier | null>(null);
     const [selectedAchs, setSelectedAchs] = useState<string[]>([]);
     const [selectedPlatform, setPlatform] = useState<string>('');
-    const [imageDataUrl, setImage] = useState('');
-    const [fileName, setFileName] = useState('');
+    const [images, setImages] = useState<{url: string, name: string}[]>([]);
     const [submitting, setSubmitting] = useState(false);
     const [updateMode, setUpdateMode] = useState(false);
     const fileRef = useRef<HTMLInputElement>(null);
@@ -56,23 +55,35 @@ export default function GenericParameterModal({ parameterId, subs, onNewSub, onC
     }
 
     function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
-        const file = e.target.files?.[0];
-        if (!file) return;
-        setFileName(file.name);
-        const reader = new FileReader();
-        reader.onload = ev => setImage(ev.target?.result as string);
-        reader.readAsDataURL(file);
+        if (!e.target.files) return;
+        const files = Array.from(e.target.files);
+        const minReq = selectedTier ? parseMinRequired(selectedTier.requirement) : 1;
+        const remaining = minReq - images.length;
+        if (remaining <= 0) return;
+        
+        const toProcess = files.slice(0, remaining);
+        
+        toProcess.forEach(file => {
+            const reader = new FileReader();
+            reader.onload = ev => {
+                setImages(prev => [...prev, { url: ev.target?.result as string, name: file.name }]);
+            };
+            reader.readAsDataURL(file);
+        });
+        
+        if (fileRef.current) fileRef.current.value = '';
     }
 
     function handleSubmit() {
-        if (!selectedTier || selectedAchs.length === 0 || !imageDataUrl) return;
+        const minReq = selectedTier ? parseMinRequired(selectedTier.requirement) : 1;
+        if (!selectedTier || selectedAchs.length === 0 || images.length !== minReq) return;
         setSubmitting(true);
         setTimeout(() => {
             onNewSub({
                 parameterId,
                 tierId: selectedTier.id,
                 platform: selectedPlatform || '—',
-                imageDataUrl,
+                imageDataUrl: minReq === 1 ? images[0].url : images.map(img => img.url),
                 status: 'pending',
                 submittedAt: new Date().toISOString(),
                 achievementLabel: selectedAchs.join(' + '),
@@ -88,8 +99,7 @@ export default function GenericParameterModal({ parameterId, subs, onNewSub, onC
         setSelectedTier(null);
         setSelectedAchs([]);
         setPlatform('');
-        setImage('');
-        setFileName('');
+        setImages([]);
         setUpdateMode(false);
     }
 
@@ -389,53 +399,71 @@ export default function GenericParameterModal({ parameterId, subs, onNewSub, onC
                             )}
 
                             {/* File upload */}
-                            <div style={{ marginBottom: 22 }}>
-                                <label style={{
-                                    display: 'block', fontSize: '0.75rem', fontWeight: 700,
-                                    color: '#374151', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.08em',
-                                }}>Upload Screenshot / Proof *</label>
-                                <div onClick={() => fileRef.current?.click()} style={{
-                                    border: `2px dashed ${imageDataUrl ? '#1F2937' : '#D1D5DB'}`,
-                                    borderRadius: 12, padding: '22px', textAlign: 'center', cursor: 'pointer',
-                                    background: imageDataUrl ? `#F3F4F6` : '#FAFAFA', transition: 'all 0.2s',
-                                }}>
-                                    <input ref={fileRef} type="file" accept="image/*"
-                                        style={{ display: 'none' }} onChange={handleFile} />
-                                    {imageDataUrl ? (
-                                        <>
-                                            <img src={imageDataUrl} alt="preview" style={{
-                                                maxHeight: 150, maxWidth: '100%', borderRadius: 8,
-                                                marginBottom: 8, boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
-                                            }} />
-                                            <p style={{ margin: 0, fontSize: 12, color: '#1F2937', fontWeight: 600 }}>
-                                                {fileName} — click to change
-                                            </p>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
-                                                stroke="#9CA3AF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
-                                                style={{ marginBottom: 8 }}>
-                                                <rect x="3" y="3" width="18" height="18" rx="2" />
-                                                <circle cx="8.5" cy="8.5" r="1.5" />
-                                                <polyline points="21 15 16 10 5 21" />
-                                            </svg>
-                                            <p style={{ margin: 0, fontWeight: 700, color: '#374151', fontSize: '0.88rem' }}>
-                                                Click to upload screenshot
-                                            </p>
-                                            <p style={{ margin: '4px 0 0', fontSize: 11, color: '#9CA3AF' }}>
-                                                PNG, JPG, JPEG — max 5MB
-                                            </p>
-                                        </>
-                                    )}
-                                </div>
-                            </div>
+                            {(() => {
+                                const minReq = parseMinRequired(selectedTier.requirement);
+                                const isFull = images.length >= minReq;
+                                return (
+                                    <div style={{ marginBottom: 22 }}>
+                                        <label style={{
+                                            display: 'block', fontSize: '0.75rem', fontWeight: 700,
+                                            color: '#374151', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.08em',
+                                        }}>Upload Screenshot / Proof * ({images.length} / {minReq})</label>
+                                        <div onClick={() => !isFull && fileRef.current?.click()} style={{
+                                            border: `2px dashed ${images.length > 0 ? '#1F2937' : '#D1D5DB'}`,
+                                            borderRadius: 12, padding: '22px', textAlign: 'center', cursor: isFull ? 'default' : 'pointer',
+                                            background: images.length > 0 ? `#F3F4F6` : '#FAFAFA', transition: 'all 0.2s',
+                                        }}>
+                                            <input ref={fileRef} type="file" accept="image/*" multiple={minReq > 1}
+                                                style={{ display: 'none' }} onChange={handleFile} />
+                                            {images.length > 0 ? (
+                                                <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'center' }}>
+                                                    {images.map((img, idx) => (
+                                                        <div key={idx} style={{ position: 'relative' }}>
+                                                            <img src={img.url} alt="preview" style={{
+                                                                maxHeight: 120, maxWidth: '100%', borderRadius: 8,
+                                                                boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+                                                            }} />
+                                                            <button onClick={(e) => { e.stopPropagation(); setImages(prev => prev.filter((_, i) => i !== idx)); }} style={{
+                                                                position: 'absolute', top: -8, right: -8, background: '#EF4444', color: '#fff', border: 'none', borderRadius: '50%', width: 22, height: 22, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: 14, fontWeight: 'bold'
+                                                            }}>✕</button>
+                                                            <p style={{ margin: '6px 0 0', fontSize: 11, color: '#1F2937', fontWeight: 600, maxWidth: 100, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                                                {img.name}
+                                                            </p>
+                                                        </div>
+                                                    ))}
+                                                    {!isFull && (
+                                                        <div style={{ alignSelf: 'center', padding: '10px 20px', background: '#fff', borderRadius: 8, border: '1px solid #D1D5DB', cursor: 'pointer', fontSize: 12, fontWeight: 700, color: '#374151' }}>
+                                                            + Add {minReq > 1 ? `(${minReq - images.length} more)` : ''}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            ) : (
+                                                <>
+                                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+                                                        stroke="#9CA3AF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
+                                                        style={{ marginBottom: 8 }}>
+                                                        <rect x="3" y="3" width="18" height="18" rx="2" />
+                                                        <circle cx="8.5" cy="8.5" r="1.5" />
+                                                        <polyline points="21 15 16 10 5 21" />
+                                                    </svg>
+                                                    <p style={{ margin: 0, fontWeight: 700, color: '#374151', fontSize: '0.88rem' }}>
+                                                        Click to upload {minReq > 1 ? `${minReq} screenshots` : 'screenshot'}
+                                                    </p>
+                                                    <p style={{ margin: '4px 0 0', fontSize: 11, color: '#9CA3AF' }}>
+                                                        PNG, JPG, JPEG — max 5MB
+                                                    </p>
+                                                </>
+                                            )}
+                                        </div>
+                                    </div>
+                                );
+                            })()}
 
                             {/* Submit */}
                             {(() => {
                                 const minReq = parseMinRequired(selectedTier.requirement);
                                 const achReady = minReq > 1 ? selectedAchs.length === minReq : selectedAchs.length === 1;
-                                const canSubmit = achReady && !!imageDataUrl && (selectedTier.platforms?.length ? !!selectedPlatform : true) && !submitting;
+                                const canSubmit = achReady && images.length === minReq && (selectedTier.platforms?.length ? !!selectedPlatform : true) && !submitting;
                                 return (
                                     <button onClick={handleSubmit} disabled={!canSubmit} style={{
                                         width: '100%', padding: '14px', borderRadius: 12, border: 'none',
